@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon - Product Listing</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+header {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filters label {
+  margin-right: 10px;
+}
+
+.filters select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.product-card p.price {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.product-card button {
+  padding: 10px 20px;
+  background-color: #f0c14b;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #ddb347;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #eee;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Product Listing</h1>
+  <div class="filters">
+    <label for="category">Category:</label>
+    <select id="category">
+      <option value="all">All Categories</option>
+      <option value="electronics">Electronics</option>
+      <option value="Shoes">Shoes</option>
+      <option value="books">Books</option>
+      <option value="home">Home & Kitchen</option>
+    </select>
+    
+    <label for="price-range">Price Range:</label>
+    <select id="price-range">
+      <option value="all">All Prices</option>
+      <option value="0-50">$0 - $50</option>
+      <option value="51-100">$51 - $100</option>
+      <option value="101-200">$101 - $200</option>
+      <option value="201-500">$201 - $500</option>
+      <option value="501-33000">$501 - $33000</option>
+    </select>
+  </div>
+</header>
+
+<main id="products">
+  <div class="product-card">
+    <img src="shoes1.jpeg" alt="Shoes1">
+    <h3>shoes </h3>
+    <p class="price">$640</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <img src="electronic5.jpeg" alt="electronic5">
+    <h3>electronic5 </h3>
+    <p class="price">$7000</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <img src="kitchen1.jpeg" alt="kitchen1">
+    <h3>kitchen </h3>
+    <p class="price">$6000</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="home.jpeg" alt="home">
+    <h3>Home </h3>
+    <p class="price">$21000</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="book5.jpeg" alt="book5">
+    <h3>book </h3>
+    <p class="price">$470</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="shoes4.jpeg" alt="shoes4">
+    <h3>shoes </h3>
+    <p class="price">$900</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="electronic4.jpeg" alt="electronic4">
+    <h3>electronic</h3>
+    <p class="price">$12000</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="micro.jpeg" alt="micro">
+    <h3>electronic</h3>
+    <p class="price">$3000</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="books2.jpeg" alt="book2">
+    <h3>book</h3>
+    <p class="price">$560</p>
+    <button>Add to Cart</button>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2024 Product Listing. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
