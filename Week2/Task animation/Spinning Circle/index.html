@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spinning Circle on Black Background</title>
+<style>
+  body {
+    background-color: #000; /
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .spinner {
+    width: 80px;
+    height: 80px;
+    border: 6px solid #fff; 
+    border-top-color: blueviolet; 
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="spinner"></div>
+</body>
+</html>
