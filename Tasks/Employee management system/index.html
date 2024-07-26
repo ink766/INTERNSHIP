@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .employee-list {
+            margin-top: 20px;
+        }
+
+        .employee-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-results {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Management System</h1>
+        <div class="form-group">
+            <h2>Add a New Employee</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Employee Name">
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Employee Age">
+            <label for="department">Department:</label>
+            <input type="text" id="department" placeholder="Employee Department">
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" placeholder="Employee Salary">
+            <button id="addEmployeeButton">Add Employee</button>
+        </div>
+        <div class="form-group">
+            <h2>Increase Salary</h2>
+            <label for="increasePercentage">Increase Percentage:</label>
+            <input type="number" id="increasePercentage" placeholder="Percentage">
+            <button id="increaseSalaryButton">Increase Salary</button>
+        </div>
+        <div class="form-group">
+            <h2>Find Employees by Department</h2>
+            <label for="searchDepartment">Department:</label>
+            <input type="text" id="searchDepartment" placeholder="Department Name">
+            <button id="searchDepartmentButton">Search</button>
+        </div>
+        <div class="employee-list" id="employeeList"></div>
+        <div class="no-results" id="noResultsMessage"></div>
+    </div>
+
+    <script>
+        function Employee(name, age, department, salary) {
+            this.name = name;
+            this.age = age;
+            this.department = department;
+            this.salary = salary;
+        }
+        const employees = [
+            new Employee('Alice', 30, 'HR', 50000),
+            new Employee('Bob', 40, 'Engineering', 70000),
+            new Employee('Charlie', 35, 'HR', 55000),
+            new Employee('David', 45, 'Engineering', 80000)
+        ];
+
+        function displayEmployees(employees) {
+            const employeeList = document.getElementById('employeeList');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            employeeList.innerHTML = '';
+            noResultsMessage.innerHTML = '';
+
+            if (employees.length === 0) {
+                noResultsMessage.innerHTML = '<p>No employees found.</p>';
+            } else {
+                employees.forEach(employee => {
+                    const employeeItem = document.createElement('div');
+                    employeeItem.classList.add('employee-item');
+                    employeeItem.innerHTML = `
+                        <h3>${employee.name}</h3>
+                        <p>Age: ${employee.age}</p>
+                        <p>Department: ${employee.department}</p>
+                        <p>Salary: $${employee.salary.toFixed(2)}</p>
+                    `;
+                    employeeList.appendChild(employeeItem);
+                });
+            }
+        }
+
+        function calculateAverageSalary(employees) {
+            if (employees.length === 0) return 0;
+            const totalSalary = employees.reduce((sum, employee) => sum + employee.salary, 0);
+            return totalSalary / employees.length;
+        }
+
+        function findEmployeesInDepartment(employees, departmentName) {
+            return employees.filter(employee => employee.department === departmentName);
+        }
+
+        function increaseSalary(employees, percentage) {
+            return employees.map(employee => {
+                const increaseAmount = employee.salary * (percentage / 100);
+                return { ...employee, salary: employee.salary + increaseAmount };
+            });
+        }
+
+        function sortEmployeesByAge(employees) {
+            return employees.slice().sort((a, b) => a.age - b.age);
+        }
+
+        document.getElementById('addEmployeeButton').addEventListener('click', function() {
+            const name = document.getElementById('name').value.trim();
+            const age = parseInt(document.getElementById('age').value.trim());
+            const department = document.getElementById('department').value.trim();
+            const salary = parseFloat(document.getElementById('salary').value.trim());
+
+            if (name && !isNaN(age) && department && !isNaN(salary)) {
+                employees.push(new Employee(name, age, department, salary));
+                displayEmployees(employees);
+                document.getElementById('name').value = '';
+                document.getElementById('age').value = '';
+                document.getElementById('department').value = '';
+                document.getElementById('salary').value = '';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        document.getElementById('increaseSalaryButton').addEventListener('click', function() {
+            const percentage = parseFloat(document.getElementById('increasePercentage').value.trim());
+
+            if (!isNaN(percentage)) {
+                const updatedEmployees = increaseSalary(employees, percentage);
+                displayEmployees(updatedEmployees);
+            } else {
+                alert('Please enter a valid percentage.');
+            }
+        });
+
+        document.getElementById('searchDepartmentButton').addEventListener('click', function() {
+            const department = document.getElementById('searchDepartment').value.trim();
+            const results = findEmployeesInDepartment(employees, department);
+            displayEmployees(results);
+        });
+        displayEmployees(employees);
+    </script>
+</body>
+</html>
+

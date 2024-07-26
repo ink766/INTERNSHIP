@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #addBookForm, #searchSection {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        #addBookForm input, #searchSection input, #searchSection button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #addBookForm button, #searchSection button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #addBookForm button:hover, #searchSection button:hover {
+            background-color: #45a049;
+        }
+        #bookList {
+            width: 100%;
+            max-width: 600px;
+        }
+        .book-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .book-item h3 {
+            margin-top: 0;
+        }
+        #noBooksMessage {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="addBookForm">
+        <h2>Add a Book</h2>
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="author" placeholder="Author" required>
+        <input type="number" id="pages" placeholder="Number of Pages" required>
+        <input type="text" id="genre" placeholder="Genre" required>
+        <button id="addBookButton">Add Book</button>
+    </div>
+
+    <div id="searchSection">
+        <h2>Search Books</h2>
+        <input type="text" id="searchTitle" placeholder="Search by title">
+        <button id="searchButton">Search</button>
+    </div>
+
+    <div id="bookList"></div>
+    <div id="noBooksMessage"></div>
+
+    <script>
+        const books = [];
+
+        document.getElementById('addBookButton').addEventListener('click', function() {
+            const title = document.getElementById('title').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const pages = document.getElementById('pages').value.trim();
+            const genre = document.getElementById('genre').value.trim();
+
+            if (title && author && pages && genre) {
+                books.push({ title, author, pages, genre });
+                displayBooks(books);
+                clearForm();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const searchTitle = document.getElementById('searchTitle').value.toLowerCase();
+            const results = books.filter(book => book.title.toLowerCase().includes(searchTitle));
+            displayBooks(results);
+        });
+
+        function displayBooks(books) {
+            const bookList = document.getElementById('bookList');
+            const noBooksMessage = document.getElementById('noBooksMessage');
+
+            bookList.innerHTML = '';
+            noBooksMessage.innerHTML = '';
+
+            if (books.length === 0) {
+                noBooksMessage.innerHTML = '<p>No books found.</p>';
+            } else {
+                books.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.classList.add('book-item');
+                    bookItem.innerHTML = `
+                        <h3>${book.title}</h3>
+                        <p>Author: ${book.author}</p>
+                        <p>Pages: ${book.pages}</p>
+                        <p>Genre: ${book.genre}</p>
+                    `;
+                    bookList.appendChild(bookItem);
+                });
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('title').value = '';
+            document.getElementById('author').value = '';
+            document.getElementById('pages').value = '';
+            document.getElementById('genre').value = '';
+        }
+    </script>
+</body>
+</html>
+
+          
