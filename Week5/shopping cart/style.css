@@ -1,0 +1,22 @@
+#cartContainer {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#cartList .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cartList .list-group-item .btn {
+    margin-left: 10px;
+}
+
+#cartIcon .badge {
+    top: -10px;
+    right: -10px;
+}
+
